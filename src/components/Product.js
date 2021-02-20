@@ -8,7 +8,7 @@ const Product = ( props ) => {
 		undefined !== product && 'GroupProduct' !== product.__typename ? (
 			<div className="product mb-5">
 				<div className="product-info">
-                    kl
+				{ product.name ? product.name : '' }
 					{/* <AddToCartButton {...props} product={ product }/> */}
 				</div>
 

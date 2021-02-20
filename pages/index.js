@@ -3,7 +3,7 @@ import client from '../src/components/ApolloClient';
 import PRODUCTS_AND_CATEGORIES_QUERY from "../src/queries/product-and-categories";
 import Landing from "../src/components/Landing";
 
-export default function Home (props) {
+export default function Index (props) {
 
 	const { products, productCategories, heroCarousel } = props;
 
