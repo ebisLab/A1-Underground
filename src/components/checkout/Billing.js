@@ -61,7 +61,7 @@ const Billing = ( { input, handleOnChange } ) => {
 					Street Address
 					<abbr className="required" title="required">*</abbr>
 				</label>
-				<input type="text" onChange={ handleOnChange } value={ input.address1 } name="address1" placeholder="House number and street name" className="form-control woo-next-checkout-input p-1 w-full border-solid border border-gray-500 rounded mb-3" id="street-address"/>
+				<input type="text" onChange={ handleOnChange } value={ input.address1 } name="address1" placeholder="House number and street name" className="bottom-space form-control woo-next-checkout-input p-1 w-full border-solid border border-gray-500 rounded mb-3" id="street-address"/>
 				<Error errors={ input.errors } fieldName={ 'address1' }/>
 				<br/>
 				<input type="text" onChange={ handleOnChange } value={ input.address2 } name="address2" placeholder="Apartment, suite, unit etc.(optional)" className="form-control woo-next-checkout-input p-1 w-full border-solid border border-gray-500 rounded" id="first-name"/>

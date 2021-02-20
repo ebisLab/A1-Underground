@@ -28,11 +28,11 @@ const YourOrder = ( { cart } ) => {
 							<td className="woo-next-checkout-total font-normal text-xl">Subtotal</td>
 							<td className="woo-next-checkout-total font-bold text-xl">{ cart.totalProductsPrice }</td>
 						</tr>
-						{/* <tr className="">
+						<tr className="">
 							<td className=""/>
 							<td className="woo-next-checkout-total">Total</td>
 							<td className="woo-next-checkout-total">{ cart.totalProductsPrice }</td>
-						</tr> */}
+						</tr>
 						</tbody>
 					</table>
 				</Fragment>

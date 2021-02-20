@@ -114,7 +114,7 @@ const CartItemsContainer = () => {
 		<div className="cart product-cart-container container mx-auto my-32 px-4 xl:px-0">
 			{ cart ? (
 				<div className="container-cart woo-next-cart-wrapper container">
-					<div className="cart-header grid grid-cols-2 gap-4">
+					<div className="grid-cont cart-header grid grid-cols-2 gap-4">
 						<h1 className="text-2xl mb-5 uppercase">Cart</h1>
 						{/*Clear entire cart*/}
 						<div className="clear-cart text-right">
@@ -126,7 +126,7 @@ const CartItemsContainer = () => {
 							{ updateCartProcessing ? <p>Updating...</p> : null }
 						</div>
 					</div>
-					<div className="grid grid-cols-1 xl:grid-cols-4 gap-0 xl:gap-4 mb-5">
+					<div className="grid-cont grid grid-cols-1 xl:grid-cols-4 gap-0 xl:gap-4 mb-5">
 						<table className="cart-products table-auto col-span-3 mb-5">
 								<thead className="text-left">
 								<tr className="woo-next-cart-head-container">

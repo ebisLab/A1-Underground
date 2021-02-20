@@ -149,7 +149,7 @@ const CheckoutForm = () => {
 		<>
 			{ cart ? (
 				<form onSubmit={ handleFormSubmit } className="woo-next-checkout-form">
-					<div className="grid grid-cols-1 md:grid-cols-2 gap-20">
+					<div className="grid-cont grid grid-cols-1 md:grid-cols-2 gap-20">
 						{/*Billing Details*/}
 						<div className="billing-details">
 							<h2 className="text-xl font-medium mb-4">Billing Details</h2>
