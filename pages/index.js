@@ -1,26 +1,32 @@
-import React from 'react'
-import Landing from '../src/components/Landing'
-import Layout from '../src/components/Layout'
+import Layout from "../src/components/Layout";
+import client from '../src/components/ApolloClient';
+import PRODUCTS_AND_CATEGORIES_QUERY from "../src/queries/product-and-categories";
+import Landing from "../src/components/Landing";
 
-export default function Index(props) {
-  return (
-      <Layout>
-        Hello World!
-        <Landing products={products}/>
-        
-      </Layout>
-  )
+export default function Home (props) {
+
+	const { products, productCategories, heroCarousel } = props;
+
+	return (
+			<Layout>
+				<Landing products={products} />
+			</Layout>
+	)
 };
 
-Index.getInitialProps = async () =>{
-  //isomorphic unfetch
-  // const res = await fetch(`${clientConfig.siteUrl}/getProducts`);
-  // const productsData = await res.json();
+export async function getStaticProps () {
 
-  const res = await client.query({query:PRODUCTS_QUERY});
-  return {
-      products:res.data.products.edges
-  }
-}
+	const { data } = await client.query( {
+		query: PRODUCTS_AND_CATEGORIES_QUERY,
+	} );
 
-export default Index;
+	return {
+		props: {
+			productCategories: data?.productCategories?.nodes ? data.productCategories.nodes : [],
+			products: data?.products?.nodes ? data.products.nodes : [],
+			heroCarousel: data?.heroCarousel?.nodes[0]?.children?.nodes ? data.heroCarousel.nodes[0].children.nodes : []
+		},
+		revalidate: 1
+	}
+
+};
