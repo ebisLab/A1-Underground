@@ -1,4 +1,4 @@
-// import AddToCartButton from '../components/cart/AddToCartButton';
+import AddToCartButton from '../components/cart/AddToCartButton';
 
 const Product = ( props ) => {
 	const { product } = props;
@@ -9,7 +9,7 @@ const Product = ( props ) => {
 			<div className="product mb-5">
 				<div className="product-info">
 				{ product.name ? product.name : '' }
-					{/* <AddToCartButton {...props} product={ product }/> */}
+					<AddToCartButton {...props} product={ product }/>
 				</div>
 
 			</div>
