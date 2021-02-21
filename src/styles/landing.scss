@@ -113,16 +113,6 @@ select, input{
 }
 
 
-
-@media (max-width: 769px){
-
-.cart-products{
-    table{
-        width: 100%;
-    }
-}
-}
-
 .container-cart{
 
     .bg-gray-500{
@@ -188,7 +178,26 @@ select, input{
     .grid-cont{
         display: flex!important;
     }
+    .woo-next-cart-head-container{
+        th{
+            text-align: left !important;
+        }
+
+    }
 }
+
+
+@media (max-width: 768px){
+
+    .tblcart {
+        width: 100% !important;
+    }
+
+    .bg-purple-600 {
+        padding: .5rem !important;
+        font-size: .9em !important;
+    }
+    }
 
 .bottom-space{
     margin-bottom: 5%;
