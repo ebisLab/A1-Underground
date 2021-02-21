@@ -112,11 +112,18 @@ select, input{
     padding: .7rem
 }
 
+
+
+@media (max-width: 769px){
+
+.cart-products{
+    table{
+        width: 100%;
+    }
+}
+}
+
 .container-cart{
-    // .bg-purple-600{
-    //     background:#805ad5;
-    //     padding: .7rem
-    // }
 
     .bg-gray-500{
         background: #879bb5;
@@ -130,7 +137,7 @@ select, input{
     padding: 1.5%;
     }
 
-    @media (min-width: 1280px){
+    @media (min-width: 769px){
         
         .grid-cont{
             display: flex!important;
@@ -172,7 +179,7 @@ select, input{
         }
 }
 
-@media (min-width: 1280px){
+@media (min-width: 769px){
 
     .checkout{
         padding: 0 2% !important;
