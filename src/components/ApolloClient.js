@@ -8,9 +8,24 @@ import { ApolloClient, ApolloLink, InMemoryCache, createHttpLink } from "@apollo
  */
 export const middleware = new ApolloLink( ( operation, forward ) => {
 	/**
-	 * If session data exist in local storage, set value as session header.
+	 * Delete session if it is older than 24 hours
 	 */
 	const session = ( process.browser ) ?  localStorage.getItem( "woo-session" ) : null;
+
+	const sessionAge = process.browser ? localStorage.getItem('woo-session-expiry'): null;
+
+	const todaysDate = new Date();
+	const oneDay = 60 * 60 * 24 * 1000;
+	const olderThan24h = new Date(todaysDate) - new Date(sessionAge) > oneDay;
+
+	if (olderThan24h && process.browser){
+		localStorage.removeItem('woo-session');
+		localStorage.removeItem('woo-session-expiry');
+	}
+
+	/**
+	 * If session data exist in local storage, set value as session header.
+	 */
 
 	if ( session ) {
 		operation.setContext( ( { headers = {} } ) => ( {
@@ -39,7 +54,7 @@ export const afterware = new ApolloLink( ( operation, forward ) => {
 		const { response: { headers } }  = context;
 		const session = headers.get( "woocommerce-session" );
 
-		if ( session ) {
+		if ( session && process.browser ) {
 
 			// Remove session data if session destroyed.
 			if ( "false" === session ) {
@@ -50,6 +65,7 @@ export const afterware = new ApolloLink( ( operation, forward ) => {
 			} else if ( localStorage.getItem( "woo-session" ) !== session ) {
 
 				localStorage.setItem( "woo-session", headers.get( "woocommerce-session" ) );
+				localStorage.setItem("woo-session-expiry", new Date());
 
 			}
 		}
@@ -61,6 +77,7 @@ export const afterware = new ApolloLink( ( operation, forward ) => {
 
 // Apollo GraphQL client.
 const client = new ApolloClient({
+	ssrMode: typeof window === 'undefined',
 	link: middleware.concat( afterware.concat( createHttpLink({
 		uri: `${process.env.NEXT_PUBLIC_WORDPRESS_URL}/graphql`,
 		fetch: fetch

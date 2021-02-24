@@ -19,6 +19,7 @@ export async function getStaticProps () {
 	const { data } = await client.query( {
 		query: PRODUCTS_AND_CATEGORIES_QUERY,
 	} );
+	
 
 	return {
 		props: {
