@@ -1,10 +1,13 @@
-import { useContext} from 'react';
-import { AppContext } from "../context/AppContext";
 import Error from "./Error";
+import StripeForm from './stripe/stripeform';
 
-const PaymentModes = ( { input, handleOnChange, bill } ) => {
+
+
+const PaymentModes = ( { input, handleOnChange, cart, bill } ) => {
 	
 	// const [ extraInput, setExtraInput ] = useContext( AppContext );
+	console.log("extra input", input)
+	console.log("cart", cart)
 	return (
 		<div className="mt-3">
 			<Error errors={ input.errors } fieldName={ 'paymentMethod' }/>
@@ -36,27 +39,16 @@ const PaymentModes = ( { input, handleOnChange, bill } ) => {
 				</label>
 			</div> */}
 			{/*Pay with Stripe*/}
-			{/* <div className="form-check woo-next-payment-input-container mt-2">
+			<div className="form-check woo-next-payment-input-container mt-2">
 				<label className="form-check-label">
 					<input onChange={ handleOnChange } value="stripe" className="form-check-input mr-3" name="paymentMethod" type="radio"/>
 					<span className="woo-next-payment-content">Stripe</span>
 				</label>
-				</div> */}
-				{/* {bill && (<>
-				<div>
-					<label>Card Number</label>
-				<input value="" placeholder="1234 1234 1234 1234"></input>
 				</div>
-				<div>
-					<label>Expiry Date</label>
-					<input value="" placeholder="MM/YY"/>
-				</div>
-				<div>
-					<label>Card Code</label>
-					<input value="" placeholder="CVC"/>
-				</div>
+				{bill && (
+				<StripeForm cart={ cart } input={input}/>
 				
-				</>)} */}
+				)}
 			
 			{/* <div className="form-check woo-next-payment-input-container mt-2">
 				<label className="form-check-label">
