@@ -4,7 +4,7 @@ import StripeForm from './stripe/stripeform';
 
 
 
-const PaymentModes = ( { input, handleOnChange, cart, bill, stripeInputInfo } ) => {
+const PaymentModes = ( { input, setInput, handleOnChange, cart, bill, stripeInputInfo } ) => {
 	
 
 	
@@ -26,7 +26,7 @@ const PaymentModes = ( { input, handleOnChange, cart, bill, stripeInputInfo } ) 
 				</label>
 				</div>
 				{bill && (
-				<StripeForm cart={ cart } input={input} stripeInputInfo={stripeInputInfo} />
+				<StripeForm cart={ cart } setInput={setInput} input={input} stripeInputInfo={stripeInputInfo} />
 				
 				)}
 			{/*	Payment Instructions*/}

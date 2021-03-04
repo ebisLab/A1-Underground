@@ -57,7 +57,6 @@ const CheckoutForm = () => {
 	const [ requestError, setRequestError ] = useState( null );
 	const [ stripeInputInfo, setStripeInputInfo] =useState()
 
-	console.log(bill)
 
 	// Get Cart Data.
 	const { loading, error, data, refetch } = useQuery( GET_CART, {
@@ -134,7 +133,6 @@ const CheckoutForm = () => {
 			setInput( newState );
 		} 		
 		else if (event.target.value === "stripe"){
-			console.log("HELLO WORLD")
 			setBill(true)
 		}
 		else {
@@ -171,7 +169,7 @@ const CheckoutForm = () => {
 							<YourOrder cart={ cart }/>
 
 							{/*Payment*/}
-							<PaymentModes input={ input } cart={ cart } handleOnChange={ handleOnChange } stripeInputInfo={stripeInputInfo} bill={bill}/>
+							<PaymentModes input={ input } setInput={setInput} cart={ cart } handleOnChange={ handleOnChange } stripeInputInfo={stripeInputInfo} bill={bill}/>
 							<div className="woo-next-place-order-btn-wrap mt-5">
 								{bill? "":(<button className="bg-purple-600 text-white px-5 py-3 rounded-sm w-auto xl:w-full" type="submit">
 									Place Order

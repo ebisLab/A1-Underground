@@ -3,10 +3,10 @@ import {Elements, CardElement, useStripe, useElements} from '@stripe/react-strip
 import axios from 'axios';
 import { useState } from 'react';
 import { useRouter } from 'next/router'
-import Error from "../Error";
+import validateAndSanitizeCheckoutForm from '../../../validator/checkout';
 
 
-const CheckForm = ({success, cart , input})=>{
+const CheckForm = ({success, cart , setInput, input})=>{
     const stripe = useStripe();
     const elements = useElements();
 
@@ -15,6 +15,11 @@ const CheckForm = ({success, cart , input})=>{
 
     const handleSubmit = async (e)=>{
         e.preventDefault();
+        const result = validateAndSanitizeCheckoutForm( input );
+        if ( ! result.isValid ) {
+			setInput( { ...input,  errors: result.errors } );
+			return;
+		}
 
 
         const {error, paymentMethod} = await stripe.createPaymentMethod({
@@ -53,7 +58,7 @@ const CheckForm = ({success, cart , input})=>{
 return (
     <div 
     style={{maxWidth:"400px", margin :"0 auto", color: "white"}}>
-        <CardElement style={{color:"white !important"}} color="white"/>
+        <CardElement style={{color:"white !important"}} color="white" fieldName={ 'paymentMethod' }/>
         <button 
         onClick={handleSubmit}
         style={{marginTop:"1em"}}
@@ -65,7 +70,7 @@ return (
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_PUBLISHABLE_KEY);
 
-const StripeForm =({cart, input})=>{
+const StripeForm =({cart, input, setInput})=>{
     const router= useRouter()
     const[status, setStatus]=useState("ready");
 
@@ -75,7 +80,7 @@ const StripeForm =({cart, input})=>{
     }
     return (
         <Elements stripe={stripePromise}>
-            <CheckForm cart={ cart } success={()=>{setStatus("success")}} input={input} />
+            <CheckForm cart={ cart } success={()=>{setStatus("success")}} input={input} setInput={setInput} fieldName={ 'paymentMethod' }/>
         </Elements>
     )
 } 
