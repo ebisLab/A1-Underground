@@ -55,8 +55,8 @@ const CheckoutForm = () => {
 	const [ input, setInput ] = useState( initialState );
 	const [ orderData, setOrderData ] = useState( null );
 	const [ requestError, setRequestError ] = useState( null );
+	const [ stripeInputInfo, setStripeInputInfo] =useState()
 
-	console.log(bill)
 
 	// Get Cart Data.
 	const { loading, error, data, refetch } = useQuery( GET_CART, {
@@ -97,16 +97,27 @@ const CheckoutForm = () => {
 	 * @return {void}
 	 */
 	const handleFormSubmit = ( event ) => {
+		console.log("EVENT",event)
 		event.preventDefault();
 		const result = validateAndSanitizeCheckoutForm( input );
 		if ( ! result.isValid ) {
 			setInput( { ...input,  errors: result.errors } );
 			return;
 		}
+		if (event.target.value == "stripe"){
+			console.log("submited")
+			setStripeInputInfo("yay it submitted")
+		}
 		const checkOutData = createCheckoutData( input );
 		setOrderData( checkOutData );
 		setRequestError( null );
+		setStripeInputInfo("yay it submitted")
+
 	};
+
+	const handleStripeSubmit =(e)=>{
+		console.log("submited on stripe")
+	}
 
 	/*
 	 * Handle onchange input.
@@ -122,12 +133,8 @@ const CheckoutForm = () => {
 			setInput( newState );
 		} 		
 		else if (event.target.value === "stripe"){
-			console.log("HELLO WORLD")
 			setBill(true)
 		}
-		 //else if(event.target.value !== "stripe"){
-		// 	setBill(false)
-		// }
 		else {
 			const newState = { ...input, [event.target.name]: event.target.value };
 			setInput( newState );
@@ -148,7 +155,7 @@ const CheckoutForm = () => {
 	return (
 		<>
 			{ cart ? (
-				<form onSubmit={ handleFormSubmit } className="woo-next-checkout-form">
+				<form onSubmit={ bill? handleStripeSubmit: handleFormSubmit } className="woo-next-checkout-form">
 					<div className="grid-cont grid grid-cols-1 md:grid-cols-2 gap-20">
 						{/*Billing Details*/}
 						<div className="billing-details">
@@ -162,11 +169,11 @@ const CheckoutForm = () => {
 							<YourOrder cart={ cart }/>
 
 							{/*Payment*/}
-							<PaymentModes input={ input } handleOnChange={ handleOnChange } bill={bill}/>
+							<PaymentModes input={ input } setInput={setInput} cart={ cart } handleOnChange={ handleOnChange } stripeInputInfo={stripeInputInfo} bill={bill}/>
 							<div className="woo-next-place-order-btn-wrap mt-5">
-								<button className="bg-purple-600 text-white px-5 py-3 rounded-sm w-auto xl:w-full" type="submit">
+								{bill? "":(<button className="bg-purple-600 text-white px-5 py-3 rounded-sm w-auto xl:w-full" type="submit">
 									Place Order
-								</button>
+								</button>)}
 							</div>
 
 							{/* Checkout Loading*/}
