@@ -68,7 +68,7 @@ return (
 )
 }
 
-const stripePromise = loadStripe(process.env.NEXT_PUBLIC_PUBLISHABLE_KEY);
+const stripePromise = loadStripe(`${process.env.NEXT_PUBLIC_PUBLISHABLE_KEY}`);
 
 const StripeForm =({cart, input, setInput})=>{
     const router= useRouter()
