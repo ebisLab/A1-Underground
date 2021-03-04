@@ -55,6 +55,7 @@ const CheckoutForm = () => {
 	const [ input, setInput ] = useState( initialState );
 	const [ orderData, setOrderData ] = useState( null );
 	const [ requestError, setRequestError ] = useState( null );
+	const [ stripeInputInfo, setStripeInputInfo] =useState()
 
 	console.log(bill)
 
@@ -99,17 +100,20 @@ const CheckoutForm = () => {
 	const handleFormSubmit = ( event ) => {
 		console.log("EVENT",event)
 		event.preventDefault();
-		// const result = validateAndSanitizeCheckoutForm( input );
-		// if ( ! result.isValid ) {
-		// 	setInput( { ...input,  errors: result.errors } );
-		// 	return;
-		// }
+		const result = validateAndSanitizeCheckoutForm( input );
+		if ( ! result.isValid ) {
+			setInput( { ...input,  errors: result.errors } );
+			return;
+		}
 		if (event.target.value == "stripe"){
 			console.log("submited")
+			setStripeInputInfo("yay it submitted")
 		}
-		// const checkOutData = createCheckoutData( input );
-		// setOrderData( checkOutData );
-		// setRequestError( null );
+		const checkOutData = createCheckoutData( input );
+		setOrderData( checkOutData );
+		setRequestError( null );
+		setStripeInputInfo("yay it submitted")
+
 	};
 
 	const handleStripeSubmit =(e)=>{
@@ -167,11 +171,9 @@ const CheckoutForm = () => {
 							<YourOrder cart={ cart }/>
 
 							{/*Payment*/}
-							<PaymentModes input={ input } cart={ cart } handleOnChange={ handleOnChange } bill={bill}/>
+							<PaymentModes input={ input } cart={ cart } handleOnChange={ handleOnChange } stripeInputInfo={stripeInputInfo} bill={bill}/>
 							<div className="woo-next-place-order-btn-wrap mt-5">
-								{bill?(<button className="bg-purple-600 text-white px-5 py-3 rounded-sm w-auto xl:w-full" type="submit">
-									Place Order
-								</button>):(<button className="bg-purple-600 text-white px-5 py-3 rounded-sm w-auto xl:w-full" type="submit">
+								{bill? "":(<button className="bg-purple-600 text-white px-5 py-3 rounded-sm w-auto xl:w-full" type="submit">
 									Place Order
 								</button>)}
 							</div>
