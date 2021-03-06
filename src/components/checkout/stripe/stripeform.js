@@ -4,7 +4,7 @@ import axios from 'axios';
 import { useState } from 'react';
 import { useRouter } from 'next/router'
 import validateAndSanitizeCheckoutForm from '../../../validator/checkout';
-
+import {style} from '../../../styles/stripestyle'
 
 const CheckForm = ({success, cart , setInput, input})=>{
     const stripe = useStripe();
@@ -54,11 +54,12 @@ const CheckForm = ({success, cart , setInput, input})=>{
         }
     }
 
-
 return (
     <div 
     style={{maxWidth:"400px", margin :"0 auto", color: "white"}}>
-        <CardElement style={{color:"white !important"}} color="white" fieldName={ 'paymentMethod' }/>
+        <CardElement 
+        options={{iconStyle: 'default', style: style }}
+         fieldName={ 'paymentMethod' }/>
         <button 
         onClick={handleSubmit}
         style={{marginTop:"1em"}}
