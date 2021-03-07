@@ -79,7 +79,10 @@ export const afterware = new ApolloLink( ( operation, forward ) => {
 const client = new ApolloClient({
 	ssrMode: typeof window === 'undefined',
 	link: middleware.concat( afterware.concat( createHttpLink({
-		uri: `${process.env.NEXT_PUBLIC_WORDPRESS_URL}/graphql`
+		uri: `${process.env.NEXT_PUBLIC_WORDPRESS_URL}/graphql`,
+		optionsSuccessStatus: 200,
+		credentials:true
+
 	}) ) ),
 	cache: new InMemoryCache(),
 });
